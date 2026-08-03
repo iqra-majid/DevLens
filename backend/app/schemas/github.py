@@ -10,3 +10,4 @@ class GitHubProfile(BaseModel):
     public_repos: int
     followers: int
     following: int
+    created_at: str

@@ -46,4 +46,5 @@ def analyze_profile(username: str):
         public_repos=data["public_repos"],
         followers=data["followers"],
         following=data["following"],
+        created_at=data["created_at"],
     )

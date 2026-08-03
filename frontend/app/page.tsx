@@ -78,27 +78,27 @@ export default function Home() {
     setRepos([]);
 
     try {
-      // Fetch Profile
-      const response = await fetch(`https://api.github.com/users/${username}`);
+      // Fetch Profile from backend API
+      const response = await fetch(`http://localhost:8000/github/${username}`);
       if (!response.ok) {
         if (response.status === 404) {
           throw new Error("GitHub user not found. Please try another username.");
         }
-        throw new Error("Failed to fetch profile data from GitHub. Please try again.");
+        throw new Error("Failed to fetch profile data from backend. Please try again.");
       }
       const data = await response.json();
       const mappedProfile: GitHubProfile = {
-        username: data.login,
+        username: data.username, // Backend returns 'username', not 'login'
         name: data.name,
         bio: data.bio,
         avatar_url: data.avatar_url,
         public_repos: data.public_repos,
         followers: data.followers,
         following: data.following,
-        location: data.location,
-        company: data.company,
-        blog: data.blog,
-        created_at: data.created_at,
+        location: data.location || null,
+        company: data.company || null,
+        blog: data.blog || null,
+        created_at: data.created_at || new Date().toISOString(), // Fallback if backend doesn't provide
       };
       setProfile(mappedProfile);
 
