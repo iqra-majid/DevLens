@@ -8,66 +8,10 @@ import AISummary from "@/components/AISummary";
 import RepositoryList, { Repository } from "@/components/RepositoryList";
 import LanguageChart from "@/components/LanguageChart";
 
-const dummyProfile: GitHubProfile = {
-  username: "devlens-analyzer",
-  name: "DevLens Analyzer",
-  bio: "A premium open-source tool for analyzing GitHub repositories, contributor statistics, commit metrics, and developer patterns.",
-  avatar_url: "https://images.unsplash.com/photo-1618401471353-b98aedd07871?q=80&w=250&auto=format&fit=crop",
-  public_repos: 42,
-  followers: 1337,
-  following: 88,
-  location: "San Francisco, CA",
-  company: "DevLens Inc.",
-  blog: "devlens-analyzer.dev",
-  created_at: "2024-01-01T00:00:00Z"
-};
-
-const dummyRepos: Repository[] = [
-  {
-    name: "DevLens",
-    description: "A premium open-source tool for analyzing GitHub repositories, contributor statistics, commit metrics, and developer patterns.",
-    language: "TypeScript",
-    stargazers_count: 120,
-    forks_count: 32,
-    open_issues_count: 5,
-    updated_at: "2026-08-01T12:00:00Z",
-    html_url: "https://github.com"
-  },
-  {
-    name: "Portfolio",
-    description: "Personal portfolio website built with React and Tailwind CSS featuring smooth transitions and dark mode support.",
-    language: "React",
-    stargazers_count: 15,
-    forks_count: 2,
-    open_issues_count: 0,
-    updated_at: "2026-08-03T10:00:00Z",
-    html_url: "https://github.com"
-  },
-  {
-    name: "AI Chat",
-    description: "Real-time AI chatbot application integrated with OpenAI GPT-4 and custom document context retrieval system.",
-    language: "Python",
-    stargazers_count: 98,
-    forks_count: 14,
-    open_issues_count: 3,
-    updated_at: "2026-07-29T15:30:00Z",
-    html_url: "https://github.com"
-  },
-  {
-    name: "Blog",
-    description: "A static blogging platform using Next.js and MDX with fully responsive design and optimized SEO tags.",
-    language: "Next.js",
-    stargazers_count: 40,
-    forks_count: 7,
-    open_issues_count: 1,
-    updated_at: "2026-07-27T09:15:00Z",
-    html_url: "https://github.com"
-  }
-];
 
 export default function Home() {
-  const [profile, setProfile] = useState<GitHubProfile | null>(dummyProfile);
-  const [repos, setRepos] = useState<Repository[]>(dummyRepos);
+  const [profile, setProfile] = useState<GitHubProfile | null>(null);
+  const [repos, setRepos] = useState<Repository[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -103,7 +47,7 @@ export default function Home() {
       setProfile(mappedProfile);
 
       // Fetch Repositories
-      const reposResponse = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=30`);
+      const reposResponse = await fetch(`http://localhost:8000/github/${username}/repositories`);
       if (reposResponse.ok) {
         const reposData = await reposResponse.json();
         const mappedRepos: Repository[] = reposData.map((repo: any) => ({
