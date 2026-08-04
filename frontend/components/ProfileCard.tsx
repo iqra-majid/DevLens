@@ -49,28 +49,28 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
         <img
           src={profile.avatar_url}
           alt={`${profile.name || profile.username}'s avatar`}
-          className="w-24 h-24 rounded-2xl object-cover border border-zinc-200/80 dark:border-zinc-800 shadow-sm"
+          className="w-32 h-32 md:w-36 md:h-36 rounded-2xl object-cover border border-zinc-200/80 dark:border-zinc-800 shadow-sm"
         />
         <div className="flex-1 text-center sm:text-left space-y-3">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white">
               {profile.name || profile.username}
             </h2>
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-1">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mt-2">
               <a
                 href={`https://github.com/${profile.username}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 font-medium hover:underline text-sm inline-flex items-center gap-1"
+                className="text-blue-600 dark:text-blue-400 font-medium hover:underline text-base inline-flex items-center gap-1"
               >
                 @{profile.username}
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
-              <span className="text-xs text-zinc-300 dark:text-zinc-700">•</span>
-              <span className="text-xs inline-flex items-center gap-1 text-zinc-500 dark:text-zinc-400">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="text-sm text-zinc-300 dark:text-zinc-700">•</span>
+              <span className="text-sm inline-flex items-center gap-1 text-zinc-500 dark:text-zinc-400">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 Joined {formatMemberSince(profile.created_at)}
@@ -79,7 +79,7 @@ export default function ProfileCard({ profile }: ProfileCardProps) {
           </div>
           
           {profile.bio && (
-            <p className="text-zinc-600 dark:text-zinc-300 text-sm leading-relaxed max-w-md italic">
+            <p className="text-zinc-600 dark:text-zinc-300 text-base md:text-lg leading-relaxed max-w-xl italic">
               "{profile.bio}"
             </p>
           )}
