@@ -6,6 +6,8 @@ from fastapi import HTTPException
 from app.schemas.github import GitHubProfile
 from app.schemas.repository import Repository
 
+from app.schemas.summary import SummaryResponse
+
 def analyze_profile(username: str):
     url = f"https://api.github.com/users/{username}"
 
@@ -83,3 +85,11 @@ def get_repositories(username: str):
         )
         for repo in repositories
     ]
+
+
+def github_summary(username: str):
+
+    from app.services.summary_service import generate_summary
+    summary = generate_summary(username)
+
+    return SummaryResponse(summary=summary)
